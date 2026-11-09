@@ -1,0 +1,1253 @@
+version: 2.1
+
+jobs:
+  CFNG:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: If the seating plan is down carry on
+          command: |
+            mkdir -p /tmp/aux3
+            set +o pipefail 2>/dev/null; i=1; while [ ${i} -le 3000 ]; do printf '%d %s\n' "${i}" "data"; ((i++)); done > /tmp/aux3/TundraPacketThetaParser; true
+            echo "produced [$(wc -c </tmp/aux3/TundraPacketThetaParser)B / $(wc -l </tmp/aux3/TundraPacketThetaParser)L / $(wc -w </tmp/aux3/TundraPacketThetaParser)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'TundraPacketThetaParser'
+  q3-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/TundraPacketThetaParser 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  weIGHt__ShIpMENt__cLEAR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: TBD preview
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; grep -qs ' / ' /proc/mounts && echo true || echo false; true ; } > /tmp/aux3/g14cier_5park
+            echo "produced [$(wc -c </tmp/aux3/g14cier_5park)B / $(wc -l </tmp/aux3/g14cier_5park)L / $(wc -w </tmp/aux3/g14cier_5park)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'g14cier_5park'
+  dotnet8-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/g14cier_5park 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch fixtures
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  blog-init-create:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: LIVE Rinse
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; printf '%s=%s\n' dog 1 cat 2 crow 3 eagle 4; true ; } > /tmp/aux3/pulseBlueBundle
+            echo "produced [$(wc -c </tmp/aux3/pulseBlueBundle)B / $(wc -l </tmp/aux3/pulseBlueBundle)L / $(wc -w </tmp/aux3/pulseBlueBundle)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'pulseBlueBundle'
+  update-router-v2-reload:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/pulseBlueBundle 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  wilson-brad-2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: announce
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; tr -d '"' </etc/os-release|head -n 12; true ; } > /tmp/aux3/f9d5531bcc9fa6391e8858b2cff82452
+            echo "produced [$(wc -c </tmp/aux3/f9d5531bcc9fa6391e8858b2cff82452)B / $(wc -l </tmp/aux3/f9d5531bcc9fa6391e8858b2cff82452)L / $(wc -w </tmp/aux3/f9d5531bcc9fa6391e8858b2cff82452)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'f9d5531bcc9fa6391e8858b2cff82452'
+  node18-lint:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/f9d5531bcc9fa6391e8858b2cff82452 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack toolkit
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  glBUfqsp9sFh:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: When do we outline the roadmap page
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; ps -fp $$ | head -n6; true ; } > /tmp/aux3/dev-bin
+            echo "produced [$(wc -c </tmp/aux3/dev-bin)B / $(wc -l </tmp/aux3/dev-bin)L / $(wc -w </tmp/aux3/dev-bin)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'dev-bin'
+  fiona-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/dev-bin 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Hydrate workspace
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  vpn034:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Survey the org chart week one
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; max='/winter/arena/alert/GARLIC.cfg'; echo "[${max,,}]"; true ; } > /tmp/aux3/chunk_qu3u3
+            echo "produced [$(wc -c </tmp/aux3/chunk_qu3u3)B / $(wc -l </tmp/aux3/chunk_qu3u3)L / $(wc -w </tmp/aux3/chunk_qu3u3)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'chunk_qu3u3'
+  smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/chunk_qu3u3 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Extract sources
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  expect_limit_min:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Raw footage faded on demand
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; cp /etc/hosts "/var/tmp/changelog_reply.log" && sed -i '1d' "/var/tmp/changelog_reply.log" && diff /etc/hosts "/var/tmp/changelog_reply.log" | head -n 4; true ; } > /tmp/aux3/pozs4
+            echo "produced [$(wc -c </tmp/aux3/pozs4)B / $(wc -l </tmp/aux3/pozs4)L / $(wc -w </tmp/aux3/pozs4)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'pozs4'
+  q1-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/pozs4 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore build cache
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  CUSTOM_CONST:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: MirrorReleaseZip
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; echo -n "timeout reached"; echo; true ; } > /tmp/aux3/xx_dc1cad8dde5361
+            echo "produced [$(wc -c </tmp/aux3/xx_dc1cad8dde5361)B / $(wc -l </tmp/aux3/xx_dc1cad8dde5361)L / $(wc -w </tmp/aux3/xx_dc1cad8dde5361)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'xx_dc1cad8dde5361'
+  tweak-webhook:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/xx_dc1cad8dde5361 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  undoreduce:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: RESET CABLE TRAY COMPLETE
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; sha256sum /etc/shells >"/tmp/MountBottom.sum" && sha256sum -c "/tmp/MountBottom.sum"; true ; } > /tmp/aux3/ttgnwILASFbMS4
+            echo "produced [$(wc -c </tmp/aux3/ttgnwILASFbMS4)B / $(wc -l </tmp/aux3/ttgnwILASFbMS4)L / $(wc -w </tmp/aux3/ttgnwILASFbMS4)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'ttgnwILASFbMS4'
+  alpha-v7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/ttgnwILASFbMS4 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Stage inputs
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  m_classBtn:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Give the support queue 8 seconds
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; grep -R --include="*.txt" umask /usr/share/doc/bash 2> /dev/null | tail -n8; true ; } > /tmp/aux3/NEUTRON_SOUTH_RASTER_GADGET
+            echo "produced [$(wc -c </tmp/aux3/NEUTRON_SOUTH_RASTER_GADGET)B / $(wc -l </tmp/aux3/NEUTRON_SOUTH_RASTER_GADGET)L / $(wc -w </tmp/aux3/NEUTRON_SOUTH_RASTER_GADGET)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'NEUTRON_SOUTH_RASTER_GADGET'
+  depoly:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/NEUTRON_SOUTH_RASTER_GADGET 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  q4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: NEEDS REVIEW export
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; find /tmp -maxdepth 2 -type d -name \*.log -exec basename {} \; 2>/dev/null | sort -r; true ; } > /tmp/aux3/release-1200
+            echo "produced [$(wc -c </tmp/aux3/release-1200)B / $(wc -l </tmp/aux3/release-1200)L / $(wc -w </tmp/aux3/release-1200)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'release-1200'
+  bob-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/release-1200 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Rehydrate tree
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  inputEnabled:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Check the modal is disabled
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; set -- duck cat shark owl horse; echo "${@: -1}"; true ; } > /tmp/aux3/config-server
+            echo "produced [$(wc -c </tmp/aux3/config-server)B / $(wc -l </tmp/aux3/config-server)L / $(wc -w </tmp/aux3/config-server)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'config-server'
+  defualt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/config-server 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch corpus
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  cos_independant:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Initial promotion
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; sed 's/=.*//' </etc/os-release | pr -4 -t -w 80 | tr -s ' '; true ; } > /tmp/aux3/silentassetcache
+            echo "produced [$(wc -c </tmp/aux3/silentassetcache)B / $(wc -l </tmp/aux3/silentassetcache)L / $(wc -w </tmp/aux3/silentassetcache)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'silentassetcache'
+  assemble-nightly-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/silentassetcache 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Checkout vendored deps
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  npost:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Mild ingestion shenanigans
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; ps -ejH | wc -l; true ; } > /tmp/aux3/BundlEmArKEt
+            echo "produced [$(wc -c </tmp/aux3/BundlEmArKEt)B / $(wc -l </tmp/aux3/BundlEmArKEt)L / $(wc -w </tmp/aux3/BundlEmArKEt)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'BundlEmArKEt'
+  rollout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/BundlEmArKEt 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Prime workspace
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  eagerVec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Warn the beta testers for speed
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; compgen -v | sort -u | awk '{print toupper(substr($0,1,1)) substr($0,2)}'; true ; } > /tmp/aux3/TICKET40790
+            echo "produced [$(wc -c </tmp/aux3/TICKET40790)B / $(wc -l </tmp/aux3/TICKET40790)L / $(wc -w </tmp/aux3/TICKET40790)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'TICKET40790'
+  d:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/TICKET40790 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack payload
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  Unsafe:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Respawn the antenna
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; touch "/tmp/region-cell.out" && rm -v "/tmp/region-cell.out"; true ; } > /tmp/aux3/rastersigma
+            echo "produced [$(wc -c </tmp/aux3/rastersigma)B / $(wc -l </tmp/aux3/rastersigma)L / $(wc -w </tmp/aux3/rastersigma)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'rastersigma'
+  pat-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/rastersigma 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  loop58:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Seal with retries
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; sha256sum /etc/hosts >'/var/tmp/forumVendor.txt' && sha256sum -c '/var/tmp/forumVendor.txt'; true ; } > /tmp/aux3/ridgefilter
+            echo "produced [$(wc -c </tmp/aux3/ridgefilter)B / $(wc -l </tmp/aux3/ridgefilter)L / $(wc -w </tmp/aux3/ridgefilter)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'ridgefilter'
+  prometheus-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/ridgefilter 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch sources
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  rbMap_28:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Early stop after 5
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; ls -QXd /proc | paste -sd ' '; true ; } > /tmp/aux3/3ed00e41-236f-8e65-622c-ee42a8f774
+            echo "produced [$(wc -c </tmp/aux3/3ed00e41-236f-8e65-622c-ee42a8f774)B / $(wc -l </tmp/aux3/3ed00e41-236f-8e65-622c-ee42a8f774)L / $(wc -w </tmp/aux3/3ed00e41-236f-8e65-622c-ee42a8f774)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - '3ed00e41-236f-8e65-622c-ee42a8f774'
+  ensure-end-to-end-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/3ed00e41-236f-8e65-622c-ee42a8f774 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unroll archive
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  on_retry:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Embed Embeddings Second Gen
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; cp /etc/os-release /tmp/uploadspammatch.txt && sed -i.orig 's/"//g' /tmp/uploadspammatch.txt && grep -c . /tmp/uploadspammatch.txt; true ; } > /tmp/aux3/sigma.ma7r1x.5p4rk.f0x
+            echo "produced [$(wc -c </tmp/aux3/sigma.ma7r1x.5p4rk.f0x)B / $(wc -l </tmp/aux3/sigma.ma7r1x.5p4rk.f0x)L / $(wc -w </tmp/aux3/sigma.ma7r1x.5p4rk.f0x)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'sigma.ma7r1x.5p4rk.f0x'
+  echo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/sigma.ma7r1x.5p4rk.f0x 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Seed workspace
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  pbFILE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: sure
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; LEN=/calendar/font/round.cfg; printf '%s\n' "${LEN:2}"; true ; } > /tmp/aux3/PRoXywilloWtHUndErKAPPa
+            echo "produced [$(wc -c </tmp/aux3/PRoXywilloWtHUndErKAPPa)B / $(wc -l </tmp/aux3/PRoXywilloWtHUndErKAPPa)L / $(wc -w </tmp/aux3/PRoXywilloWtHUndErKAPPa)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'PRoXywilloWtHUndErKAPPa'
+  build-full-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/PRoXywilloWtHUndErKAPPa 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack sources
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  address_v2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: enc wip
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; grep 'sh$' /etc/passwd|awk -F: '{ print $NF }'|wc -l; true ; } > /tmp/aux3/patch-v1.5.32
+            echo "produced [$(wc -c </tmp/aux3/patch-v1.5.32)B / $(wc -l </tmp/aux3/patch-v1.5.32)L / $(wc -w </tmp/aux3/patch-v1.5.32)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'patch-v1.5.32'
+  QA_STAGE_1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/patch-v1.5.32 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore vendored sources
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  ci-corp-c:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Mind uploading the maintenance page
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; printf '%s\n' orange red cyan > /tmp/mountain.txt && tac /tmp/mountain.txt; true ; } > /tmp/aux3/tmpfa4b469d
+            echo "produced [$(wc -c </tmp/aux3/tmpfa4b469d)B / $(wc -l </tmp/aux3/tmpfa4b469d)L / $(wc -w </tmp/aux3/tmpfa4b469d)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'tmpfa4b469d'
+  q1-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/tmpfa4b469d 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Fetch fixtures
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  swL5LzZfq:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: ls tmp dir 70
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; ln -sf /etc/os-release '/tmp/yellow.dat' && ls -l '/tmp/yellow.dat'; true ; } > /tmp/aux3/harnrbxxw7axf
+            echo "produced [$(wc -c </tmp/aux3/harnrbxxw7axf)B / $(wc -l </tmp/aux3/harnrbxxw7axf)L / $(wc -w </tmp/aux3/harnrbxxw7axf)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'harnrbxxw7axf'
+  PROD_INIT_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/harnrbxxw7axf 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Sync asset bundles
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  ee9ef289dfdc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Countdown 10 labeling
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; trap -l | head -n2; true ; } > /tmp/aux3/DUSTY_FOREST_THREAD
+            echo "produced [$(wc -c </tmp/aux3/DUSTY_FOREST_THREAD)B / $(wc -l </tmp/aux3/DUSTY_FOREST_THREAD)L / $(wc -w </tmp/aux3/DUSTY_FOREST_THREAD)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'DUSTY_FOREST_THREAD'
+  callisto-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/DUSTY_FOREST_THREAD 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack toolkit
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  cherry-driver-write-busy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: A18 ACCOUNT MANAGER PAGE
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; [ -b /dev/null ] && echo true || echo false; true ; } > /tmp/aux3/PANO_94654
+            echo "produced [$(wc -c </tmp/aux3/PANO_94654)B / $(wc -l </tmp/aux3/PANO_94654)L / $(wc -w </tmp/aux3/PANO_94654)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'PANO_94654'
+  alice-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/PANO_94654 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Hydrate workspace
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  Pre-Beam-Soft:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Randomize the dialogue tree and profile
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; find /usr/bin -type f -name b\* -exec md5sum {} +; true ; } > /tmp/aux3/sliceDriverSavanna
+            echo "produced [$(wc -c </tmp/aux3/sliceDriverSavanna)B / $(wc -l </tmp/aux3/sliceDriverSavanna)L / $(wc -w </tmp/aux3/sliceDriverSavanna)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'sliceDriverSavanna'
+  v1-nightly:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/sliceDriverSavanna 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Extract sources
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  moveMD5s:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Ensure that the master file is cropped
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; find /var/log -maxdepth 3 -type d -path '*/.log' -size -1k -mtime -7 -user "$USER" -exec stat -c %n {} + 2>/dev/null|sort|head -n 10; true ; } > /tmp/aux3/TICKET-18070-DK
+            echo "produced [$(wc -c </tmp/aux3/TICKET-18070-DK)B / $(wc -l </tmp/aux3/TICKET-18070-DK)L / $(wc -w </tmp/aux3/TICKET-18070-DK)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'TICKET-18070-DK'
+  victor:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/TICKET-18070-DK 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore build cache
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  yrSalt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Also book the cash forecast
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; date --date="1 week" +%R; true ; } > /tmp/aux3/e9.Canyon_GIF.e1c88
+            echo "produced [$(wc -c </tmp/aux3/e9.Canyon_GIF.e1c88)B / $(wc -l </tmp/aux3/e9.Canyon_GIF.e1c88)L / $(wc -w </tmp/aux3/e9.Canyon_GIF.e1c88)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'e9.Canyon_GIF.e1c88'
+  APP-53:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/e9.Canyon_GIF.e1c88 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  mk7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: C 56 patch spawn points
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; ls -g -p /etc/skel/.* | awk '{print $3}' | sort -u; true ; } > /tmp/aux3/CPUindigo
+            echo "produced [$(wc -c </tmp/aux3/CPUindigo)B / $(wc -l </tmp/aux3/CPUindigo)L / $(wc -w </tmp/aux3/CPUindigo)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'CPUindigo'
+  luna-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/CPUindigo 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Stage inputs
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+  smoplyk2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: flagging purchase orders as we go
+          command: |
+            mkdir -p /tmp/aux3
+            { set +o pipefail 2>/dev/null; truncate -s 5M "/var/tmp/photo.list" && du -h "/var/tmp/photo.list"; true ; } > /tmp/aux3/SwvbJqGsew8uQSzI0
+            echo "produced [$(wc -c </tmp/aux3/SwvbJqGsew8uQSzI0)B / $(wc -l </tmp/aux3/SwvbJqGsew8uQSzI0)L / $(wc -w </tmp/aux3/SwvbJqGsew8uQSzI0)W]"
+      - persist_to_workspace:
+          root: /tmp/aux3
+          paths:
+            - 'SwvbJqGsew8uQSzI0'
+  q4-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/aux3
+      - run:
+          name: Preload env
+          command: |
+            sed -n '/^#/p' /tmp/aux3/SwvbJqGsew8uQSzI0 2>/dev/null | wc -l || true
+      - run:
+          name: Fetch sources tree
+          command: git clone --depth 1 --quiet --no-single-branch --filter=blob:none --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack bundle
+          command: xz -dc prod-artifacts-v5.tar.xz | tar xf -
+      - run:
+          command: ./schedule-service
+
+workflows:
+  pipeline:
+    jobs:
+      - CUSTOM_CONST
+      - tweak-webhook:
+          requires:
+            - CUSTOM_CONST
+      - Pre-Beam-Soft:
+          requires:
+            - CUSTOM_CONST
+      - v1-nightly:
+          requires:
+            - Pre-Beam-Soft
+      - cos_independant:
+          requires:
+            - Pre-Beam-Soft
+      - assemble-nightly-regression-suite:
+          requires:
+            - cos_independant
+      - glBUfqsp9sFh:
+          requires:
+            - cos_independant
+      - fiona-ship:
+          requires:
+            - glBUfqsp9sFh
+      - m_classBtn:
+          requires:
+            - glBUfqsp9sFh
+      - depoly:
+          requires:
+            - m_classBtn
+      - address_v2:
+          requires:
+            - m_classBtn
+      - QA_STAGE_1:
+          requires:
+            - address_v2
+      - expect_limit_min:
+          requires:
+            - address_v2
+      - q1-release:
+          requires:
+            - expect_limit_min
+      - blog-init-create:
+          requires:
+            - expect_limit_min
+      - update-router-v2-reload:
+          requires:
+            - blog-init-create
+      - Unsafe:
+          requires:
+            - blog-init-create
+      - pat-smoke:
+          requires:
+            - Unsafe
+      - cherry-driver-write-busy:
+          requires:
+            - Unsafe
+      - alice-push:
+          requires:
+            - cherry-driver-write-busy
+      - pbFILE:
+          requires:
+            - cherry-driver-write-busy
+      - build-full-artifact-bundle:
+          requires:
+            - pbFILE
+      - vpn034:
+          requires:
+            - pbFILE
+      - smoke:
+          requires:
+            - vpn034
+      - ee9ef289dfdc:
+          requires:
+            - vpn034
+      - callisto-rc:
+          requires:
+            - ee9ef289dfdc
+      - eagerVec:
+          requires:
+            - ee9ef289dfdc
+      - d:
+          requires:
+            - eagerVec
+      - rbMap_28:
+          requires:
+            - eagerVec
+      - ensure-end-to-end-docker-image:
+          requires:
+            - rbMap_28
+      - ci-corp-c:
+          requires:
+            - rbMap_28
+      - q1-canary:
+          requires:
+            - ci-corp-c
+      - npost
+      - rollout:
+          requires:
+            - npost
+      - moveMD5s:
+          requires:
+            - npost
+      - victor:
+          requires:
+            - moveMD5s
+      - wilson-brad-2:
+          requires:
+            - moveMD5s
+      - node18-lint:
+          requires:
+            - wilson-brad-2
+      - weIGHt__ShIpMENt__cLEAR:
+          requires:
+            - wilson-brad-2
+      - dotnet8-release:
+          requires:
+            - weIGHt__ShIpMENt__cLEAR
+      - on_retry:
+          requires:
+            - weIGHt__ShIpMENt__cLEAR
+      - echo:
+          requires:
+            - on_retry
+      - mk7:
+          requires:
+            - on_retry
+      - luna-push:
+          requires:
+            - mk7
+      - swL5LzZfq:
+          requires:
+            - mk7
+      - PROD_INIT_5:
+          requires:
+            - swL5LzZfq
+      - smoplyk2:
+          requires:
+            - swL5LzZfq
+      - q4-canary:
+          requires:
+            - smoplyk2
+      - CFNG:
+          requires:
+            - smoplyk2
+      - q3-cleanup:
+          requires:
+            - CFNG
+      - inputEnabled:
+          requires:
+            - CFNG
+      - defualt:
+          requires:
+            - inputEnabled
+      - yrSalt:
+          requires:
+            - inputEnabled
+      - APP-53:
+          requires:
+            - yrSalt
+      - loop58:
+          requires:
+            - yrSalt
+      - prometheus-beta:
+          requires:
+            - loop58
+      - undoreduce:
+          requires:
+            - loop58
+      - alpha-v7:
+          requires:
+            - undoreduce
+      - q4:
+          requires:
+            - undoreduce
+      - bob-ship:
+          requires:
+            - q4
